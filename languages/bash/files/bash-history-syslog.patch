@@ -1,16 +1,16 @@
 From 33e9b03f81e871594b1f8ab1740c09cd5593c27c Mon Sep 17 00:00:00 2001
 From: Scott Little <scott.little@windriver.com>
 Date: Fri, 26 Aug 2016 16:04:44 -0400
-Subject: [PATCH 1/2] WRS: Patch500: bash-history-syslog.patch
+Subject: [PATCH 1/2]: bash-history-syslog.patch
 
 ---
- bashhist.c                  |   78 +-
- config-top.h                |    2 +-
- shell.c                     |  111 +++
- 3 files changed, 173 insertions(+), 18 deletions(-)
+ bashhist.c   |  86 ++++++++++++++++++++++++++++++++--------------
+ config-top.h |   2 +-
+ shell.c      | 109 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ 3 files changed, 171 insertions(+), 26 deletions(-)
 
 diff --git a/bashhist.c b/bashhist.c
-index 7240a5b..5116f8d 100644
+index 9979f99..69bc565 100644
 --- a/bashhist.c
 +++ b/bashhist.c
 @@ -38,10 +38,6 @@
@@ -48,17 +48,27 @@ index 7240a5b..5116f8d 100644
  static struct ignorevar histignore =
  {
    "HISTIGNORE",
-@@ -700,22 +706,11 @@ check_add_history (line, force)
+@@ -746,8 +752,6 @@ check_add_history (line, force)
  }
  
  #if defined (SYSLOG_HISTORY)
 -#define SYSLOG_MAXLEN 600
 -
- void
+ extern char *shell_name;
+ 
+ #ifndef OPENLOG_OPTS
+@@ -758,23 +762,7 @@ void
  bash_syslog_history (line)
       const char *line;
  {
 -  char trunc[SYSLOG_MAXLEN];
+-  static int first = 1;
+-
+-  if (first)
+-    {
+-      openlog (shell_name, OPENLOG_OPTS, SYSLOG_FACILITY);
+-      first = 0;
+-    }
 -
 -  if (strlen(line) < SYSLOG_MAXLEN)
 -    syslog (SYSLOG_FACILITY|SYSLOG_LEVEL, "HISTORY: PID=%d UID=%d %s", getpid(), current_user.uid, line);
@@ -72,7 +82,7 @@ index 7240a5b..5116f8d 100644
  }
  #endif
       	
-@@ -769,6 +764,10 @@ bash_add_history (line)
+@@ -838,6 +826,10 @@ bash_add_history (line)
  	  sprintf (new_line, "%s%s%s", current->line, chars_to_add, line);
  	  offset = where_history ();
  	  old = replace_history_entry (offset, new_line, current->data);
@@ -83,7 +93,7 @@ index 7240a5b..5116f8d 100644
  	  free (new_line);
  
  	  if (old)
-@@ -779,11 +778,13 @@ bash_add_history (line)
+@@ -848,12 +840,13 @@ bash_add_history (line)
      }
  
    if (add_it)
@@ -94,11 +104,12 @@ index 7240a5b..5116f8d 100644
 -  bash_syslog_history (line);
 +    bash_syslog_history (line);
  #endif
+-
 +  }
- 
    using_history ();
  }
-@@ -906,4 +907,47 @@ history_should_ignore (line)
+ 
+@@ -975,4 +968,47 @@ history_should_ignore (line)
  
    return match;
  }
@@ -147,10 +158,10 @@ index 7240a5b..5116f8d 100644
 +
  #endif /* HISTORY */
 diff --git a/config-top.h b/config-top.h
-index 01e934e..c22c883 100644
+index cb0e002..8051fad 100644
 --- a/config-top.h
 +++ b/config-top.h
-@@ -103,7 +103,7 @@
+@@ -115,7 +115,7 @@
  
  /* Define if you want each line saved to the history list in bashhist.c:
     bash_add_history() to be sent to syslog(). */
@@ -160,10 +171,10 @@ index 01e934e..c22c883 100644
  #  define SYSLOG_FACILITY LOG_USER
  #  define SYSLOG_LEVEL LOG_INFO
 diff --git a/shell.c b/shell.c
-index 6f9afcd..7eca4e3 100644
+index 4aae182..42b5dce 100644
 --- a/shell.c
 +++ b/shell.c
-@@ -72,6 +72,12 @@
+@@ -77,6 +77,12 @@ extern int get_tty_state __P((void));
  #  include <readline/history.h>
  #endif
  
@@ -174,27 +185,20 @@ index 6f9afcd..7eca4e3 100644
 +#endif
 +
  #if defined (READLINE)
+ #  include <readline/readline.h>
  #  include "bashline.h"
- #endif
-@@ -106,6 +112,9 @@ extern int array_needs_making;
- extern int gnu_error_format;
+@@ -114,6 +120,10 @@ extern int gnu_error_format;
  extern char *primary_prompt, *secondary_prompt;
  extern char *this_command_name;
+ 
 +#if defined (SYSLOG_HISTORY)
 +extern int  cmdline_hist_sock[2];
 +#endif
- 
++
  /* Non-zero means that this shell has already been run; i.e. you should
     call shell_reinitialize () if you need to start afresh. */
-@@ -223,6 +232,7 @@ int dump_po_strings;		/* Dump strings in $"..." in po format */
- int wordexp_only = 0;		/* Do word expansion only */
- int protected_mode = 0;		/* No command substitution with --wordexp */
- 
-+
- #if defined (STRICT_POSIX)
- int posixly_correct = 1;	/* Non-zero means posix.2 superset. */
- #else
-@@ -327,6 +337,10 @@ static void shell_reinitialize __P((void));
+ int shell_initialized = 0;
+@@ -341,6 +351,10 @@ static void shell_reinitialize __P((void));
  
  static void show_shell_usage __P((FILE *, int));
  
@@ -205,11 +209,10 @@ index 6f9afcd..7eca4e3 100644
  #ifdef __CYGWIN__
  static void
  _cygwin32_check_tmp ()
-@@ -369,6 +383,11 @@ main (argc, argv, env)
+@@ -383,6 +397,10 @@ main (argc, argv, env)
    env = environ;
  #endif /* __OPENNT */
  
-+
 +#if defined (SYSLOG_HISTORY)
 +  pid_t con_pid;
 +#endif
@@ -217,7 +220,7 @@ index 6f9afcd..7eca4e3 100644
    USE_VAR(argc);
    USE_VAR(argv);
    USE_VAR(env);
-@@ -747,6 +766,11 @@ main (argc, argv, env)
+@@ -790,6 +808,11 @@ main (argc, argv, env)
        /* Initialize terminal state for interactive shells after the
  	 .bash_profile and .bashrc are interpreted. */
        get_tty_state ();
@@ -229,7 +232,7 @@ index 6f9afcd..7eca4e3 100644
      }
  
  #if !defined (ONESHOT)
-@@ -757,6 +781,13 @@ main (argc, argv, env)
+@@ -800,6 +823,13 @@ main (argc, argv, env)
  
    /* Read commands until exit condition. */
    reader_loop ();
@@ -243,11 +246,10 @@ index 6f9afcd..7eca4e3 100644
    exit_shell (last_command_exit_value);
  }
  
-@@ -1619,6 +1650,86 @@ set_shell_name (argv0)
+@@ -1725,6 +1755,85 @@ set_shell_name (argv0)
      shell_name = PROGRAM;
  }
  
-+
 +#if defined (SYSLOG_HISTORY)
 +#define SYSLOG_MAXLEN 1200
 +
@@ -261,7 +263,7 @@ index 6f9afcd..7eca4e3 100644
 +
 +  if (socketpair(AF_UNIX, SOCK_DGRAM | SOCK_CLOEXEC, 0, cmdline_hist_sock) == -1)
 +    {
-+      return -1;
++     return -1;
 +    }
 +
 +
@@ -331,5 +333,5 @@ index 6f9afcd..7eca4e3 100644
  init_interactive ()
  {
 -- 
-1.9.1
+2.7.4
 
