@@ -1,0 +1,23 @@
+From 48b6dd9faf73b7ad0a34f9c71f2552701b117bd9 Mon Sep 17 00:00:00 2001
+From: Long Li <lilong-neu@neusoft.com>
+Date: Wed, 18 Dec 2019 16:13:20 +0800
+Subject: [PATCH] change python to python3 explicitily
+
+Signed-off-by: Long Li <lilong-neu@neusoft.com>
+---
+ scripts/pythondistdeps.py | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/scripts/pythondistdeps.py b/scripts/pythondistdeps.py
+index 2abb59f..36590ba 100755
+--- a/scripts/pythondistdeps.py
++++ b/scripts/pythondistdeps.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/python
++#!/usr/bin/python3
+ # -*- coding: utf-8 -*-
+ #
+ # Copyright 2010 Per Øyvind Karlsen <proyvind@moondrake.org>
+-- 
+2.7.4
+

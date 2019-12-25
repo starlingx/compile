@@ -7,7 +7,7 @@
 # disable plugins initially
 %bcond_without plugins
 
-%{!?python_sitearch: %global python_sitearch %(%{__python} -c "from distutils.sysconfig import get_python_lib; print get_python_lib(1)")}
+%{!?python3_sitearch: %global python3_sitearch %(%{__python3} -c "from distutils.sysconfig import get_python_lib; print (get_python_lib(1))")}
 
 %define rpmhome /usr/lib/rpm
 
@@ -32,6 +32,7 @@ BuildRequires: libdb-devel
 %endif
 
 Patch1: 0001-sign-files-only.patch
+Patch2: 0002-change-python-to-python3-explicitly.patch
 
 # Partially GPL/LGPL dual-licensed and some bits with BSD
 # SourceLicense: (GPLv2+ and LGPLv2+ with exceptions) and BSD 
@@ -71,7 +72,7 @@ BuildRequires: libselinux-devel
 BuildRequires: libsemanage-devel
 BuildRequires: ncurses-devel
 BuildRequires: bzip2-devel >= 0.9.0c-2
-BuildRequires: python-devel >= 2.6
+BuildRequires: python3-devel
 BuildRequires: lua-devel >= 5.1
 BuildRequires: libcap-devel
 BuildRequires: libacl-devel
@@ -234,6 +235,7 @@ Requires: rpm-libs%{_isa} = %{version}-%{release}
 %setup -q -n %{name}-%{srcver} %{?with_int_bdb:-a 1}
 
 %patch1 -p1
+%patch2 -p1
 
 %if %{with int_bdb}
 ln -s db-%{bdbver} db
@@ -432,7 +434,7 @@ exit 0
 
 %files python
 %defattr(-,root,root)
-%{python_sitearch}/rpm
+%{python3_sitearch}/rpm
 
 %files devel
 %defattr(-,root,root)
