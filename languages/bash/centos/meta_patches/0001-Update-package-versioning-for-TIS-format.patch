@@ -8,15 +8,15 @@ Subject: [PATCH 2/2]: 0001-Update-package-versioning-for-TIS-format.patch
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/SPECS/bash.spec b/SPECS/bash.spec
-index f0a7590..f878068 100644
+index d3c1c0b..01b4ac8 100644
 --- a/SPECS/bash.spec
 +++ b/SPECS/bash.spec
 @@ -7,7 +7,7 @@
  Version: %{baseversion}%{patchleveltag}
  Name: bash
  Summary: The GNU Bourne Again shell
--Release: 7%{?dist}
-+Release: 7.el8%{?_tis_dist}.%{tis_patch_ver}
+-Release: 8%{?dist}
++Release: 8.el8_0%{?_tis_dist}.%{tis_patch_ver}
  License: GPLv3+
  Url: https://www.gnu.org/software/bash
  Source0: https://ftp.gnu.org/gnu/bash/bash-%{baseversion}.tar.gz

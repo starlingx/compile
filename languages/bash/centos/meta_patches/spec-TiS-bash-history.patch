@@ -8,12 +8,12 @@ Subject: [PATCH 1/2]: spec-TiS-bash-history.patch
  1 file changed, 3 insertions(+)
 
 diff --git a/SPECS/bash.spec b/SPECS/bash.spec
-index 7e3549a..f0a7590 100644
+index bce5680..d3c1c0b 100644
 --- a/SPECS/bash.spec
 +++ b/SPECS/bash.spec
-@@ -95,6 +95,9 @@ Patch131: bash-4.4-case-in-command-subst.patch
- 
- Patch132: bash-4.4-coverity.patch
+@@ -99,6 +99,9 @@ Patch132: bash-4.4-coverity.patch
+ # https://lists.gnu.org/archive/html/bug-bash/2017-01/msg00065.html
+ Patch134: bash-5.0-shellpid-subshell.patch
  
 +Patch500: bash-history-syslog.patch
 +Patch501: bash-history-exit-child-on-parent-death.patch
