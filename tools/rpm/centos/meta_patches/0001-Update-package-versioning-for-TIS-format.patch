@@ -1,0 +1,26 @@
+From 61e2e0e6a870859ec0b4c61aac0908b2b8ee709a Mon Sep 17 00:00:00 2001
+From: Long Li <lilong-neu@neusoft.com>
+Date: Mon, 10 Feb 2020 14:45:38 +0800
+Subject: [PATCH 1/2] Update-package-versioning-for-TIS-format
+
+Signed-off-by: Long Li <lilong-neu@neusoft.com>
+---
+ SPECS/rpm.spec | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/SPECS/rpm.spec b/SPECS/rpm.spec
+index d5455fe..37dc04c 100644
+--- a/SPECS/rpm.spec
++++ b/SPECS/rpm.spec
+@@ -42,7 +42,7 @@
+ Summary: The RPM package management system
+ Name: rpm
+ Version: %{rpmver}
+-Release: %{?snapver:0.%{snapver}.}%{rel}%{?dist}
++Release: 11.el8_0%{?_tis_dist}.%{tis_patch_ver}
+ Group: System Environment/Base
+ Url: http://www.rpm.org/
+ Source0: http://ftp.rpm.org/releases/%{srcdir}/%{name}-%{srcver}.tar.bz2
+-- 
+2.7.4
+

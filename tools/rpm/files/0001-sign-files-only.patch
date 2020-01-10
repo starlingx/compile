@@ -40,7 +40,7 @@ index ae86f66..8855e01 100644
      default:
  	argerror(_("only one major mode may be specified"));
 diff --git a/sign/rpmgensig.c b/sign/rpmgensig.c
-index d29c178..66168d2 100644
+index 771d010..90efc69 100644
 --- a/sign/rpmgensig.c
 +++ b/sign/rpmgensig.c
 @@ -507,7 +507,9 @@ static rpmRC replaceSigDigests(FD_t fd, const char *rpm, Header *sigp,
@@ -185,14 +185,14 @@ index d29c178..66168d2 100644
      if (args) {
  	if (args->hashalgo) {
 diff --git a/sign/rpmsignfiles.c b/sign/rpmsignfiles.c
-index 61b73bd..d6c593d 100644
+index 61b73bd..46a1fbc 100644
 --- a/sign/rpmsignfiles.c
 +++ b/sign/rpmsignfiles.c
 @@ -126,10 +126,15 @@ rpmRC rpmSignFiles(Header h, const char *key, char *keypass)
  	    rc = RPMRC_FAIL;
  	    goto exit;
  	}
-+/* 
++/*
  	free(signature);
 +*/
 +
@@ -204,3 +204,6 @@ index 61b73bd..d6c593d 100644
 +*/
      return rc;
  }
+-- 
+2.7.4
+

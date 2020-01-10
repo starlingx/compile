@@ -1,0 +1,26 @@
+From 9ea8cfbb6794187590f90275b180d5c000e3acf2 Mon Sep 17 00:00:00 2001
+From: Long Li <lilong-neu@neusoft.com>
+Date: Mon, 10 Feb 2020 14:43:34 +0800
+Subject: [PATCH 2/2] STX-add-sign-files-only
+
+Signed-off-by: Long Li <lilong-neu@neusoft.com>
+---
+ SPECS/rpm.spec | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/SPECS/rpm.spec b/SPECS/rpm.spec
+index 37dc04c..e0602bd 100644
+--- a/SPECS/rpm.spec
++++ b/SPECS/rpm.spec
+@@ -97,6 +97,8 @@ Patch1000: disable-python-extra.patch
+ # /usr/bin/python3.6
+ Patch1001: compile-with-Platform-Python-binary-where-relevant.patch
+ 
++Patch2001: 0001-sign-files-only.patch
++
+ # Partially GPL/LGPL dual-licensed and some bits with BSD
+ # SourceLicense: (GPLv2+ and LGPLv2+ with exceptions) and BSD 
+ License: GPLv2+
+-- 
+2.7.4
+
