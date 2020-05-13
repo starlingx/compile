@@ -311,6 +311,11 @@ done
 
 find $RPM_BUILD_ROOT -name "*.la"|xargs rm -f
 
+# These live in python3-rpm-generators now
+rm -f $RPM_BUILD_ROOT/%{rpmhome}/pythond*
+rm -f $RPM_BUILD_ROOT/%{_fileattrsdir}/python*
+
+
 %clean
 rm -rf $RPM_BUILD_ROOT
 
