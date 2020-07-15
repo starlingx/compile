@@ -181,6 +181,7 @@ Requires:       go-srpm-macros
 
 Patch1:       0001-Don-t-use-the-bundled-tzdata-at-runtime-except-for-t.patch
 Patch2:       0002-syscall-expose-IfInfomsg.X__ifi_pad-on-s390x.patch
+Patch3:       fix_http2_erringroundtripper_handling.patch
 
 # Having documentation separate was broken
 Obsoletes:      %{name}-docs < 1.1-4
@@ -308,6 +309,7 @@ Requires:       %{name} = %{version}-%{release}
 
 %patch1 -p1
 %patch2 -p1
+%patch3 -p1
 
 cp %{SOURCE1} ./src/runtime/
 
