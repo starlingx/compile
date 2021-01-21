@@ -15,8 +15,8 @@ index 4f16c8c..d749f92 100644
  Version: %{baseversion}%{patchleveltag}
  Name: bash
  Summary: The GNU Bourne Again shell
--Release: 31%{?dist}
-+Release: 31.el7%{?_tis_dist}.%{tis_patch_ver}
+-Release: 34%{?dist}
++Release: 34.el7%{?_tis_dist}.%{tis_patch_ver}
  Group: System Environment/Shells
  License: GPLv3+
  Url: http://www.gnu.org/software/bash

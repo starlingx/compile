@@ -48,13 +48,16 @@ index 7240a5b..5116f8d 100644
  static struct ignorevar histignore =
  {
    "HISTIGNORE",
-@@ -700,22 +706,11 @@ check_add_history (line, force)
+@@ -700,8 +706,6 @@ check_add_history (line, force)
  }
  
  #if defined (SYSLOG_HISTORY)
 -#define SYSLOG_MAXLEN 600
 -
- void
+ #if defined (SYSLOG_SHOPT)
+ int syslog_history = SYSLOG_SHOPT;
+ #else
+@@ -712,16 +716,7 @@
  bash_syslog_history (line)
       const char *line;
  {
@@ -83,7 +86,7 @@ index 7240a5b..5116f8d 100644
  	  free (new_line);
  
  	  if (old)
-@@ -779,11 +778,13 @@ bash_add_history (line)
+@@ -779,12 +778,14 @@ bash_add_history (line)
      }
  
    if (add_it)
@@ -91,8 +94,8 @@ index 7240a5b..5116f8d 100644
      really_add_history (line);
  
  #if defined (SYSLOG_HISTORY)
--  bash_syslog_history (line);
-+    bash_syslog_history (line);
+   if (syslog_history)
+     bash_syslog_history (line);
  #endif
 +  }
  
