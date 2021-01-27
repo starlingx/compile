@@ -15,8 +15,8 @@ index 2af363e..c3706be 100644
  Name: %{python}
  # Remember to also rebase python-docs when changing this:
  Version: 2.7.5
--Release: 76%{?dist}
-+Release: 76.el7%{?_tis_dist}.%{tis_patch_ver}
+-Release: 89%{?dist}
++Release: 89.el7%{?_tis_dist}.%{tis_patch_ver}
  License: Python
  Group: Development/Languages
  Requires: %{python}-libs%{?_isa} = %{version}-%{release}
