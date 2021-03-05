@@ -1,16 +1,16 @@
-From 33e9b03f81e871594b1f8ab1740c09cd5593c27c Mon Sep 17 00:00:00 2001
+From e68d8b76e88d3a26b6bd8cacd1fc79ccc9b0b2e7 Mon Sep 17 00:00:00 2001
 From: Scott Little <scott.little@windriver.com>
-Date: Fri, 26 Aug 2016 16:04:44 -0400
+Date: Mon, 8 Mar 2021 02:02:58 -0500
 Subject: [PATCH 1/2] WRS: Patch500: bash-history-syslog.patch
 
 ---
- bashhist.c                  |   78 +-
- config-top.h                |    2 +-
- shell.c                     |  111 +++
- 3 files changed, 173 insertions(+), 18 deletions(-)
+ bashhist.c   |  77 +++++++++++++++++++++++++++--------
+ config-top.h |   2 +-
+ shell.c      | 111 +++++++++++++++++++++++++++++++++++++++++++++++++++
+ 3 files changed, 172 insertions(+), 18 deletions(-)
 
 diff --git a/bashhist.c b/bashhist.c
-index 7240a5b..5116f8d 100644
+index 9ad1265..04333f1 100644
 --- a/bashhist.c
 +++ b/bashhist.c
 @@ -38,10 +38,6 @@
@@ -57,7 +57,7 @@ index 7240a5b..5116f8d 100644
  #if defined (SYSLOG_SHOPT)
  int syslog_history = SYSLOG_SHOPT;
  #else
-@@ -712,16 +716,7 @@
+@@ -712,16 +716,7 @@ void
  bash_syslog_history (line)
       const char *line;
  {
@@ -75,7 +75,7 @@ index 7240a5b..5116f8d 100644
  }
  #endif
       	
-@@ -769,6 +764,10 @@ bash_add_history (line)
+@@ -775,6 +770,10 @@ bash_add_history (line)
  	  sprintf (new_line, "%s%s%s", current->line, chars_to_add, line);
  	  offset = where_history ();
  	  old = replace_history_entry (offset, new_line, current->data);
@@ -86,7 +86,7 @@ index 7240a5b..5116f8d 100644
  	  free (new_line);
  
  	  if (old)
-@@ -779,12 +778,14 @@ bash_add_history (line)
+@@ -785,12 +784,13 @@ bash_add_history (line)
      }
  
    if (add_it)
@@ -94,14 +94,14 @@ index 7240a5b..5116f8d 100644
      really_add_history (line);
  
  #if defined (SYSLOG_HISTORY)
-   if (syslog_history)
+-  if (syslog_history)
      bash_syslog_history (line);
  #endif
 +  }
  
    using_history ();
  }
-@@ -906,4 +907,47 @@ history_should_ignore (line)
+@@ -913,4 +913,47 @@ history_should_ignore (line)
  
    return match;
  }
@@ -150,7 +150,7 @@ index 7240a5b..5116f8d 100644
 +
  #endif /* HISTORY */
 diff --git a/config-top.h b/config-top.h
-index 01e934e..c22c883 100644
+index d5c5774..ca59f37 100644
 --- a/config-top.h
 +++ b/config-top.h
 @@ -103,7 +103,7 @@
@@ -334,5 +334,5 @@ index 6f9afcd..7eca4e3 100644
  init_interactive ()
  {
 -- 
-1.9.1
+2.29.2
 
