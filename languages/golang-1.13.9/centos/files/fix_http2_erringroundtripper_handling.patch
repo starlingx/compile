@@ -1,0 +1,26 @@
+diff --git a/src/net/http/h2_bundle.go b/src/net/http/h2_bundle.go
+index e9a55f3..6ec0ea1 100644
+--- a/src/net/http/h2_bundle.go
++++ b/src/net/http/h2_bundle.go
+@@ -8893,6 +8893,7 @@ func http2strSliceContains(ss []string, s string) bool {
+ 
+ type http2erringRoundTripper struct{ err error }
+ 
++func (rt http2erringRoundTripper) IsHTTP2ErringRoundtripper() {}
+ func (rt http2erringRoundTripper) RoundTrip(*Request) (*Response, error) { return nil, rt.err }
+ 
+ // gzipReader wraps a response body so it can lazily
+diff --git a/src/net/http/transport.go b/src/net/http/transport.go
+index db8ec4b..e3f9553 100644
+--- a/src/net/http/transport.go
++++ b/src/net/http/transport.go
+@@ -539,8 +539,7 @@ func (t *Transport) roundTrip(req *Request) (*Response, error) {
+ 		}
+ 
+ 		// Failed. Clean up and determine whether to retry.
+-
+-		_, isH2DialError := pconn.alt.(http2erringRoundTripper)
++		_, isH2DialError := pconn.alt.(interface{ IsHTTP2ErringRoundtripper() })
+ 		if http2isNoCachedConnError(err) || isH2DialError {
+ 			if t.removeIdleConn(pconn) {
+ 				t.decConnsPerHost(pconn.cacheKey)

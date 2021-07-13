@@ -6,7 +6,10 @@ Group:          Development/Languages
 License:        Go
 URL:            https://github.com/golang/dep
 Source:         dep-v0.5.0.tar.gz
-BuildRequires:  golang
+
+# Build with our own prefered golang, not 1.11 from CentOS
+# BuildRequires:  golang
+BuildRequires:  golang >= 1.13
 Requires:       golang
 
 %global with_debug 0
@@ -28,6 +31,7 @@ tar --strip-components=1 -x -f %{SOURCE0}
 
 %build
 export GOPATH=%{_builddir}/go
+go env -w GO111MODULE=auto
 (cd cmd/dep && %gobuild -o dep)
 
 %install
