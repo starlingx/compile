@@ -1,0 +1,6 @@
+debver: 0.5.4-3
+debname: go-dep
+archive: http://snapshot.debian.org/archive/debian/20200104T085234Z/pool/main/g/go-dep/
+revision:
+  dist: $STX_DIST
+  PKG_GITREVCOUNT:
