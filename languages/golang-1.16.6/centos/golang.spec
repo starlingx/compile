@@ -140,7 +140,7 @@ BuildRequires:  hostname
 BuildRequires:  net-tools
 %endif
 # for tests
-BuildRequires:  pcre-devel, glibc-static, perl-interpreter, procps-ng
+BuildRequires:  pcre-devel, glibc-static, perl-interpreter, procps-ng, coreutils
 
 Provides:       go = %{version}-%{release}
 Provides:       go = %{version}

@@ -136,7 +136,7 @@ BuildRequires:  hostname
 BuildRequires:  net-tools
 %endif
 # for tests
-BuildRequires:  pcre-devel, glibc-static, perl-interpreter, procps-ng
+BuildRequires:  pcre-devel, glibc-static, perl-interpreter, procps-ng, coreutils
 
 # Comment out some provides to ensure 1.16.6 is used in preference to this version.
 # The concern being that this version compiles first, and is avaialble to satisfy 
@@ -237,6 +237,7 @@ Patch1:       0001-Don-t-use-the-bundled-tzdata-at-runtime-except-for-t.patch
 Patch2:       0002-syscall-expose-IfInfomsg.X__ifi_pad-on-s390x.patch
 Patch3:       0003-cmd-go-disable-Google-s-proxy-and-sumdb.patch
 Patch4:       fix_http2_erringroundtripper_handling.patch
+Patch5:       syscall-extend-skip-criteria-for-TestAmbientCapsUser.patch
 
 # Having documentation separate was broken
 Obsoletes:      %{obsoletes_name}-docs < 1.13
@@ -374,6 +375,7 @@ Requires:       %{name} = %{version}-%{release}
 %patch2 -p1
 %patch3 -p1
 %patch4 -p1
+%patch5 -p1
 
 cp %{SOURCE1} ./src/runtime/
 

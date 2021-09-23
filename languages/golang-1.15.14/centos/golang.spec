@@ -137,7 +137,7 @@ BuildRequires:  hostname
 BuildRequires:  net-tools
 %endif
 # for tests
-BuildRequires:  pcre-devel, glibc-static, perl-interpreter, procps-ng
+BuildRequires:  pcre-devel, glibc-static, perl-interpreter, procps-ng, coreutils
 
 # Comment out some provides to ensure 1.16.4 is used in preference to this version.
 # The concern being that this version compiles first, and is avaialble to satisfy 
