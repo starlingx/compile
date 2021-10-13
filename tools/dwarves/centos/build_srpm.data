@@ -1,0 +1,2 @@
+COPY_LIST="${CGCS_BASE}/downloads/dwarves-1.22.tar.bz2"
+TIS_PATCH_VER=PKG_GITREVCOUNT
