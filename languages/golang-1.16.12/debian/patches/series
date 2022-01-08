@@ -1,5 +1,4 @@
 0001-Don-t-use-the-bundled-tzdata-at-runtime-except-for-t.patch
 0002-syscall-expose-IfInfomsg.X__ifi_pad-on-s390x.patch
 0003-cmd-go-disable-Google-s-proxy-and-sumdb.patch
-ppc64le-vdso-fix.patch
 0001-Add-fedora.go-to-src-dir.patch

@@ -4,4 +4,5 @@ rpm-4.14.0.tar.bz2#rpm-4.14.0#https://ftp.osuosl.org/pub/rpm/releases/rpm-4.14.x
 go1.13.9.src.tar.gz#go#https://dl.google.com/go/go1.13.9.src.tar.gz##https##
 go1.13.15.src.tar.gz#go-13.15#https://storage.googleapis.com/golang/go1.13.15.src.tar.gz##https##
 go1.15.14.src.tar.gz#go-15.14#https://storage.googleapis.com/golang/go1.15.14.src.tar.gz##https##
-go1.16.6.src.tar.gz#go-16.6#https://storage.googleapis.com/golang/go1.16.6.src.tar.gz##https##
+go1.16.12.src.tar.gz#go-16.12#https://storage.googleapis.com/golang/go1.16.12.src.tar.gz##https##
+
