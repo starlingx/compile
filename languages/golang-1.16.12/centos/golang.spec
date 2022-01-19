@@ -81,7 +81,7 @@
 %endif
 
 %global go_api 1.16
-%global go_tar_dir go
+%global go_tar_dir go-16.12
 %global go_version 1.16.12
 %global go_macro_version 1_16_12
 %global obsoletes_name golang
