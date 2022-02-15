@@ -3,7 +3,4 @@ tools/dwarves
 tools/golang-dep
 tools/rpm
 languages/python-2.7.5
-languages/golang-1.13.9
-languages/golang-1.13.15
-languages/golang-1.15.14
 languages/golang-1.16.12
