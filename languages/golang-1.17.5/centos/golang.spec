@@ -111,7 +111,7 @@
 %global go_api 1.17
 %global go_tar_dir go-1.17.5
 %global go_version %{go_api}.5
-%global obsoletes_name golang 
+%global obsoletes_name golang
 # For rpmdev-bumpspec and releng automation
 %global baserelease 1
  
@@ -166,17 +166,16 @@ Provides: bundled(golang(golang.org/x/xerrors)) = 0.0.0.20200804184101.5ec99f83a
 
 Requires:       %{name}-bin = %{version}-%{release}
 Requires:       %{name}-src = %{version}-%{release}
-Requires:       go-srpm-macros
 
 Patch1:       0001-Don-t-use-the-bundled-tzdata-at-runtime-except-for-t.patch
 Patch2:       0002-syscall-expose-IfInfomsg.X__ifi_pad-on-s390x.patch
 Patch3:       0003-cmd-go-disable-Google-s-proxy-and-sumdb.patch
 
 # Having documentation separate was broken
-Obsoletes:      %{name}-docs < 1.1-4
+Obsoletes:      %{obsoletes_name}-docs < 1.13
 
 # RPM can't handle symlink -> dir with subpackages, so merge back
-Obsoletes:      %{name}-data < 1.1.1-4
+Obsoletes:      %{obsoletes_name}-data < 1.13
 
 # go1.4 deprecates a few packages
 Obsoletes:      %{name}-vim < 1.4
@@ -194,7 +193,7 @@ Source100:      golang-gdbinit
 Summary:       Golang compiler docs
 Requires:      %{name} = %{version}-%{release}
 BuildArch:     noarch
-Obsoletes:     %{name}-docs < 1.1-4
+Obsoletes:     %{obsoletes_name}-docs < 1.13
 
 %description   docs
 %{summary}.
@@ -203,6 +202,7 @@ Obsoletes:     %{name}-docs < 1.1-4
 Summary:       Golang compiler miscellaneous sources
 Requires:      %{name} = %{version}-%{release}
 BuildArch:     noarch
+Obsoletes:     %{obsoletes_name}-misc < 1.13
 
 %description   misc
 %{summary}.
@@ -211,6 +211,7 @@ BuildArch:     noarch
 Summary:       Golang compiler tests for stdlib
 Requires:      %{name} = %{version}-%{release}
 BuildArch:     noarch
+Obsoletes:     %{obsoletes_name}-tests < 1.13
 
 %description   tests
 %{summary}.
@@ -218,12 +219,16 @@ BuildArch:     noarch
 %package        src
 Summary:        Golang compiler source tree
 BuildArch:      noarch
+Obsoletes:     %{obsoletes_name}-src < 1.13
+
 %description    src
 %{summary}
 
 %package        bin
 Summary:        Golang core compiler tools
 Requires:       go = %{version}-%{release}
+Obsoletes:      %{obsoletes_name}-bin < 1.13
+
 # Pre-go1.5, all arches had to be bootstrapped individually, before usable, and
 # env variables to compile for the target os-arch.
 # Now the host compiler needs only the GOOS and GOARCH environment variables
@@ -280,6 +285,7 @@ end
 %if %{shared}
 %package        shared
 Summary:        Golang shared object libraries
+Obsoletes:      %{obsoletes_name}-shared < 1.13
 
 %description    shared
 %{summary}.
@@ -288,6 +294,7 @@ Summary:        Golang shared object libraries
 %if %{race}
 %package        race
 Summary:        Golang std library with -race enabled
+Obsoletes:      %{obsoletes_name}-race < 1.13
 
 Requires:       %{name} = %{version}-%{release}
 
