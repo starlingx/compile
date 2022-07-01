@@ -1,5 +1,6 @@
 languages/bash
 tools/dwarves
+tools/expat
 tools/golang-dep
 tools/rpm
 languages/python-2.7.5
