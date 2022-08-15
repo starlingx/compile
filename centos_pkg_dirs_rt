@@ -1,0 +1,4 @@
+# Each line in this file will specify a directory in this
+# repository. Packages described in these directories will be
+# included in the build.
+tools/rpm
