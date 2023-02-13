@@ -1,0 +1,6 @@
+debver: 1.19.5-1~bpo11+1
+debname: golang-1.19
+archive: https://snapshot.debian.org/archive/debian/20230207T154006Z/pool/main/g/golang-1.19/
+revision:
+  dist: $STX_DIST
+  PKG_GITREVCOUNT:
