@@ -1,6 +1,4 @@
 languages/bash
-languages/golang-1.16.12
-languages/golang-1.17.5
 languages/golang-1.18.5
 languages/golang-1.20.11
 tools/golang-dep
