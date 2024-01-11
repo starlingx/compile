@@ -1,0 +1,27 @@
+From c37f383f8e816cbbe4d34daceb09fc8684cba5c8 Mon Sep 17 00:00:00 2001
+From: Li Zhou <li.zhou@windriver.com>
+Date: Wed, 15 Sep 2021 14:57:59 +0800
+Subject: [PATCH] Add fedora.go to src/runtime dir
+
+Signed-off-by: Li Zhou <li.zhou@windriver.com>
+---
+ src/runtime/fedora.go | 7 +++++++
+ 1 file changed, 7 insertions(+)
+ create mode 100644 src/runtime/fedora.go
+
+diff --git a/src/runtime/fedora.go b/src/runtime/fedora.go
+new file mode 100644
+index 00000000..81b28ba3
+--- /dev/null
++++ b/src/runtime/fedora.go
+@@ -0,0 +1,7 @@
++// +build rpm_crashtraceback
++
++package runtime
++
++func init() {
++	setTraceback("crash")
++}
+-- 
+2.30.2
+

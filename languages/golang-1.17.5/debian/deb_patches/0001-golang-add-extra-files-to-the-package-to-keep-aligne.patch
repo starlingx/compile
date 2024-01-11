@@ -1,0 +1,53 @@
+From 19ef607a04c167afce503ffd16d3d7faca12b9f4 Mon Sep 17 00:00:00 2001
+From: Li Zhou <li.zhou@windriver.com>
+Date: Thu, 16 Sep 2021 05:42:13 +0000
+Subject: [PATCH] golang: add extra files to the package to keep aligned with
+ stx
+
+Signed-off-by: Li Zhou <li.zhou@windriver.com>
+---
+ debian/extra/golang.conf | 3 +++
+ debian/extra/golang.gdb  | 1 +
+ debian/rules             | 8 ++++++++
+ 3 files changed, 12 insertions(+)
+ create mode 100644 debian/extra/golang.conf
+ create mode 100644 debian/extra/golang.gdb
+
+diff --git a/debian/extra/golang.conf b/debian/extra/golang.conf
+new file mode 100644
+index 0000000..471e8e6
+--- /dev/null
++++ b/debian/extra/golang.conf
+@@ -0,0 +1,3 @@
++# there are ELF files in src which are testdata and shouldn't be modified
++-b /usr/lib/golang/src
++-b /usr/lib64/golang/src
+diff --git a/debian/extra/golang.gdb b/debian/extra/golang.gdb
+new file mode 100644
+index 0000000..ecddca6
+--- /dev/null
++++ b/debian/extra/golang.gdb
+@@ -0,0 +1 @@
++add-auto-load-safe-path /usr/lib/golang/src/runtime/runtime-gdb.py
+diff --git a/debian/rules b/debian/rules
+index 7f859dc..fd2ba61 100755
+--- a/debian/rules
++++ b/debian/rules
+@@ -96,6 +96,14 @@ execute_after_dh_install-indep:
+ 	chmod a+x debian/golang-$(GOVER)-src/usr/share/go-$(GOVER)/src/cmd/vendor/golang.org/x/sys/unix/mkerrors.sh
+ 	chmod a+x debian/golang-$(GOVER)-src/usr/share/go-$(GOVER)/src/cmd/vendor/golang.org/x/sys/windows/mkerrors.bash
+ 
++_sysconfdir=/etc/
++override_dh_auto_install:
++	dh_auto_install
++	# gdbinit
++	dh_install debian/extra/golang.gdb $(buildroot)/$(_sysconfdir)/gdbinit.d/
++	# prelink blacklist
++	dh_install debian/extra/golang.conf $(buildroot)/$(_sysconfdir)/prelink.conf.d/
++
+ override_dh_strip:
+ 	dh_strip -Xtestdata
+ 
+-- 
+2.30.2
+
