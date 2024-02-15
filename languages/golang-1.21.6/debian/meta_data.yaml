@@ -1,0 +1,6 @@
+debver: 1.21.6-1
+debname: golang-1.21
+archive: https://snapshot.debian.org/archive/debian/20240212T035119Z/pool/main/g/golang-1.21/
+revision:
+  dist: $STX_DIST
+  PKG_GITREVCOUNT:

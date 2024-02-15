@@ -2,4 +2,5 @@ languages/bash
 languages/golang-1.17.5
 languages/golang-1.18.5
 languages/golang-1.20.11
+languages/golang-1.21.6
 tools/golang-dep
