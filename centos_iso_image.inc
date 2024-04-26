@@ -1,6 +1,0 @@
-
-# bash
-bash
-
-expat
-
