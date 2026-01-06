@@ -1,0 +1,7 @@
+---
+debver: 5.2.37-2
+debname: bash
+archive: https://snapshot.debian.org/archive/debian/20251130T202713Z/pool/main/b/bash/
+revision:
+  dist: $STX_DIST
+  PKG_GITREVCOUNT: true

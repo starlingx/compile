@@ -1,0 +1,6 @@
+debver: 1.22.12-3~bpo12+1
+debname: golang-1.22
+archive: https://snapshot.debian.org/archive/debian/20250630T203427Z/pool/main/g/golang-1.22/
+revision:
+  dist: $STX_DIST
+  PKG_GITREVCOUNT:
